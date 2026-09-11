@@ -1,0 +1,5285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>SITEORA - Website Builder</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#ffffff;
+  color:#111;
+  overflow-x:hidden;
+}
+
+button{
+  font-family:inherit;
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.hidden{
+  display:none !important;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+  width:100%;
+  height:76px;
+
+  position:fixed;
+  top:0;
+  left:0;
+
+  z-index:5000;
+
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+
+  padding:0 34px;
+
+  background:rgba(255,255,255,.97);
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   NAV CENTER
+========================================================= */
+
+.nav-center{
+  height:100%;
+
+  display:flex;
+  align-items:center;
+
+  gap:3px;
+}
+
+.nav-item{
+  height:100%;
+
+  position:relative;
+
+  display:flex;
+  align-items:center;
+}
+
+.nav-link{
+  height:100%;
+
+  padding:0 15px;
+
+  display:flex;
+  align-items:center;
+
+  font-size:13px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+}
+
+.nav-item:hover .nav-link{
+  opacity:.5;
+}
+
+
+/* =========================================================
+   DROPDOWNS
+========================================================= */
+
+.dropdown{
+  width:350px;
+
+  position:absolute;
+
+  top:76px;
+  left:50%;
+
+  padding:18px;
+
+  transform:
+    translateX(-50%)
+    translateY(12px);
+
+  background:#fff;
+
+  border:1px solid #e7e7e7;
+
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.1);
+
+  opacity:0;
+  visibility:hidden;
+
+  pointer-events:none;
+
+  transition:.22s ease;
+}
+
+.dropdown.large{
+  width:630px;
+}
+
+.nav-item:hover .dropdown{
+  opacity:1;
+  visibility:visible;
+
+  pointer-events:auto;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
+
+.dropdown-title{
+  padding:5px 10px 12px;
+
+  color:#999;
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:1.6px;
+
+  text-transform:uppercase;
+}
+
+.dropdown-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px 12px;
+}
+
+.dropdown-item{
+  display:block;
+
+  padding:13px 11px;
+
+  border-radius:8px;
+
+  transition:.2s;
+}
+
+.dropdown-item:hover{
+  background:#f4f4f2;
+}
+
+.dropdown-item strong{
+  display:block;
+
+  margin-bottom:5px;
+
+  font-size:14px;
+}
+
+.dropdown-item span{
+  display:block;
+
+  color:#777;
+
+  font-size:12px;
+
+  line-height:1.45;
+}
+
+
+/* =========================================================
+   NAV RIGHT
+========================================================= */
+
+.nav-right{
+  display:flex;
+
+  align-items:center;
+  justify-content:flex-end;
+
+  gap:20px;
+}
+
+.login-btn{
+  border:none;
+  background:transparent;
+
+  font-size:13px;
+  font-weight:700;
+}
+
+.get-started-btn{
+  height:44px;
+
+  padding:0 22px;
+
+  border:none;
+
+  background:#111;
+  color:#fff;
+
+  font-size:12px;
+  font-weight:700;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  min-height:73vh;
+
+  padding:
+    140px
+    20px
+    62px;
+
+  position:relative;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  overflow:hidden;
+
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(116,96,255,.11),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 76%,
+      rgba(255,173,106,.13),
+      transparent 27%
+    ),
+    #f5f5f2;
+}
+
+.hero::before{
+  content:"";
+
+  width:450px;
+  height:450px;
+
+  position:absolute;
+
+  top:-250px;
+  left:-150px;
+
+  border-radius:50%;
+
+  background:
+    rgba(128,111,255,.05);
+}
+
+.hero-content{
+  width:100%;
+  max-width:880px;
+
+  position:relative;
+
+  z-index:2;
+}
+
+.hero-label{
+  display:inline-block;
+
+  margin-bottom:22px;
+
+  padding:8px 15px;
+
+  border:1px solid #d9d9d9;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,.8);
+
+  font-size:10px;
+  font-weight:700;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+.hero h1{
+  margin-bottom:22px;
+
+  font-size:70px;
+
+  line-height:.98;
+
+  letter-spacing:-4px;
+
+  font-weight:500;
+}
+
+.hero-description{
+  max-width:650px;
+
+  margin:
+    0 auto
+    29px;
+
+  color:#666;
+
+  font-size:17px;
+
+  line-height:1.7;
+}
+
+.hero-buttons{
+  display:flex;
+
+  justify-content:center;
+
+  gap:10px;
+}
+
+.hero-primary,
+.hero-secondary{
+  height:50px;
+
+  padding:0 25px;
+
+  font-size:12px;
+
+  font-weight:700;
+}
+
+.hero-primary{
+  border:none;
+
+  background:#111;
+
+  color:#fff;
+}
+
+.hero-secondary{
+  border:1px solid #ccc;
+
+  background:#fff;
+
+  color:#111;
+}
+
+
+/* =========================================================
+   PREMIUM TEMPLATE SHOWCASE
+========================================================= */
+
+.template-showcase{
+  position:relative;
+
+  padding:
+    48px
+    0
+    60px;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255,255,255,.09),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #344c5f 0%,
+      #253847 38%,
+      #182630 70%,
+      #111b22 100%
+    );
+
+  color:#fff;
+}
+
+
+/* subtle background light */
+
+.template-showcase::before{
+  content:"";
+
+  width:750px;
+  height:420px;
+
+  position:absolute;
+
+  left:50%;
+  top:47%;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.035);
+
+  filter:blur(40px);
+
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   SHOWCASE HEADER
+========================================================= */
+
+.showcase-header{
+  position:relative;
+
+  z-index:5;
+
+  max-width:1000px;
+
+  margin:
+    0 auto
+    20px;
+
+  padding:0 20px;
+
+  text-align:center;
+}
+
+.showcase-label{
+  margin-bottom:7px;
+
+  color:rgba(255,255,255,.6);
+
+  font-size:9px;
+
+  font-weight:700;
+
+  letter-spacing:1.8px;
+
+  text-transform:uppercase;
+}
+
+.showcase-header h2{
+  font-size:29px;
+
+  line-height:1.1;
+
+  letter-spacing:-1px;
+
+  font-weight:500;
+}
+
+.showcase-header p{
+  margin-top:8px;
+
+  color:rgba(255,255,255,.64);
+
+  font-size:12px;
+}
+
+
+/* =========================================================
+   CAROUSEL STAGE
+========================================================= */
+
+.carousel-stage{
+  width:100%;
+
+  height:455px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  user-select:none;
+
+  touch-action:pan-y;
+}
+
+
+/* =========================================================
+   WEBSITE CARD
+========================================================= */
+
+.website-card{
+  width:720px;
+  height:390px;
+
+  position:absolute;
+
+  top:28px;
+  left:50%;
+
+  overflow:hidden;
+
+  border-radius:
+    14px
+    14px
+    10px
+    10px;
+
+  background:#fff;
+
+  box-shadow:
+    0 32px 80px rgba(0,0,0,.32);
+
+  cursor:pointer;
+
+  opacity:0;
+
+  transform:
+    translateX(-50%)
+    scale(.65);
+
+  transition:
+    transform .9s cubic-bezier(.22,.61,.36,1),
+    opacity .75s ease,
+    filter .75s ease;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+
+/* =========================================================
+   ACTIVE CENTER CARD
+========================================================= */
+
+.website-card.active{
+  z-index:10;
+
+  opacity:1;
+
+  filter:none;
+
+  transform:
+    translateX(-50%)
+    scale(1)
+    rotate(0deg);
+}
+
+
+/* =========================================================
+   LEFT CARD
+========================================================= */
+
+.website-card.prev{
+  z-index:7;
+
+  opacity:.75;
+
+  filter:
+    brightness(.74)
+    saturate(.85);
+
+  transform:
+    translateX(calc(-50% - 590px))
+    scale(.76)
+    rotate(-2.8deg);
+}
+
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.website-card.next{
+  z-index:7;
+
+  opacity:.75;
+
+  filter:
+    brightness(.74)
+    saturate(.85);
+
+  transform:
+    translateX(calc(-50% + 590px))
+    scale(.76)
+    rotate(2.8deg);
+}
+
+
+/* =========================================================
+   FAR LEFT
+========================================================= */
+
+.website-card.far-prev{
+  z-index:3;
+
+  opacity:.18;
+
+  transform:
+    translateX(calc(-50% - 900px))
+    scale(.56)
+    rotate(-5deg);
+}
+
+
+/* =========================================================
+   FAR RIGHT
+========================================================= */
+
+.website-card.far-next{
+  z-index:3;
+
+  opacity:.18;
+
+  transform:
+    translateX(calc(-50% + 900px))
+    scale(.56)
+    rotate(5deg);
+}
+
+
+/* =========================================================
+   MOCK SITE COMMON
+========================================================= */
+
+.mock-site{
+  width:100%;
+  height:100%;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.mock-nav{
+  height:52px;
+
+  padding:0 22px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  position:relative;
+
+  z-index:5;
+
+  font-size:9px;
+}
+
+.mock-nav-links{
+  display:flex;
+
+  gap:18px;
+
+  align-items:center;
+}
+
+.mock-pill{
+  padding:
+    7px
+    12px;
+
+  border-radius:20px;
+
+  background:
+    rgba(255,255,255,.13);
+}
+
+
+/* =========================================================
+   TEMPLATE 1 — BARBER
+========================================================= */
+
+.barber-site{
+  background:#d8d0c7;
+
+  color:#111;
+}
+
+.barber-big{
+  width:345px;
+
+  position:absolute;
+
+  left:25px;
+  top:110px;
+
+  font-size:42px;
+
+  line-height:.88;
+
+  letter-spacing:-2px;
+
+  font-weight:800;
+}
+
+.barber-image{
+  width:195px;
+  height:215px;
+
+  position:absolute;
+
+  right:45px;
+  top:80px;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 55% 28%,
+      #312522 0 18%,
+      transparent 19%
+    ),
+    linear-gradient(
+      145deg,
+      #725f55,
+      #1c1918
+    );
+}
+
+.barber-image::after{
+  content:"";
+
+  width:145px;
+  height:190px;
+
+  position:absolute;
+
+  bottom:-75px;
+  right:-10px;
+
+  border-radius:
+    70% 35% 0 0;
+
+  transform:
+    rotate(-7deg);
+
+  background:#191615;
+}
+
+.barber-book{
+  position:absolute;
+
+  left:25px;
+  bottom:60px;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  text-decoration:underline;
+}
+
+
+/* =========================================================
+   TEMPLATE 2 — WELLNESS
+========================================================= */
+
+.wellness-site{
+  background:
+    linear-gradient(
+      135deg,
+      #15201f,
+      #202c29
+    );
+
+  color:#edf7f5;
+}
+
+.wellness-title{
+  position:absolute;
+
+  left:27px;
+  top:72px;
+
+  font-size:88px;
+
+  line-height:.9;
+
+  letter-spacing:-7px;
+
+  font-weight:500;
+}
+
+.wellness-title small{
+  font-size:17px;
+
+  letter-spacing:-1px;
+}
+
+.wellness-floor{
+  height:140px;
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  background:
+    linear-gradient(
+      165deg,
+      transparent 0 15%,
+      #79817b 16%,
+      #252b29 55%
+    );
+}
+
+.wellness-block-one{
+  width:65px;
+  height:93px;
+
+  position:absolute;
+
+  bottom:75px;
+  left:100px;
+
+  z-index:3;
+
+  background:#929994;
+
+  box-shadow:
+    14px 14px 24px rgba(0,0,0,.25);
+}
+
+.wellness-block-two{
+  width:100px;
+  height:65px;
+
+  position:absolute;
+
+  bottom:53px;
+  left:170px;
+
+  z-index:3;
+
+  background:#7f8781;
+
+  box-shadow:
+    14px 14px 24px rgba(0,0,0,.25);
+}
+
+.wellness-light{
+  width:280px;
+  height:170px;
+
+  position:absolute;
+
+  top:125px;
+  right:40px;
+
+  transform:
+    skewX(-25deg);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.35),
+      transparent
+    );
+
+  filter:blur(8px);
+
+  opacity:.46;
+}
+
+
+/* =========================================================
+   TEMPLATE 3 — TUTOR
+========================================================= */
+
+.tutor-site{
+  background:#d7cfbc;
+
+  color:#111;
+}
+
+.tutor-content{
+  padding:10px 25px;
+
+  text-align:center;
+}
+
+.tutor-title{
+  margin-top:0;
+
+  font-family:Georgia,serif;
+
+  font-size:58px;
+
+  line-height:.8;
+
+  font-weight:400;
+}
+
+.tutor-author{
+  margin-top:58px;
+
+  font-family:Georgia,serif;
+
+  font-size:9px;
+}
+
+.tutor-copy{
+  width:230px;
+
+  margin:
+    70px auto
+    0;
+
+  font-size:10px;
+
+  line-height:1.15;
+}
+
+
+/* =========================================================
+   TEMPLATE 4 — PORTFOLIO
+========================================================= */
+
+.portfolio-site{
+  background:#ecebe7;
+
+  color:#111;
+}
+
+.portfolio-main{
+  padding:30px 28px;
+}
+
+.portfolio-label{
+  margin-top:10px;
+
+  font-size:8px;
+
+  letter-spacing:1.8px;
+}
+
+.portfolio-title{
+  width:420px;
+
+  margin-top:25px;
+
+  font-size:52px;
+
+  line-height:.88;
+
+  letter-spacing:-3px;
+
+  font-weight:500;
+}
+
+.portfolio-grid{
+  position:absolute;
+
+  right:25px;
+  bottom:25px;
+
+  display:grid;
+
+  grid-template-columns:
+    120px
+    120px;
+
+  gap:8px;
+}
+
+.portfolio-grid div{
+  height:105px;
+
+  border-radius:2px;
+
+  background:#b5b5af;
+}
+
+.portfolio-grid div:nth-child(2){
+  background:#7e9187;
+}
+
+.portfolio-grid div:nth-child(3){
+  background:#c09473;
+}
+
+.portfolio-grid div:nth-child(4){
+  background:#4c5a60;
+}
+
+
+/* =========================================================
+   TEMPLATE 5 — STORE
+========================================================= */
+
+.store-site{
+  background:#eee7dc;
+
+  color:#171717;
+}
+
+.store-title{
+  padding:
+    28px
+    30px;
+
+  font-family:Georgia,serif;
+
+  font-size:54px;
+
+  line-height:.86;
+
+  font-weight:400;
+}
+
+.store-object{
+  width:245px;
+  height:180px;
+
+  position:absolute;
+
+  right:42px;
+  bottom:28px;
+
+  border-radius:
+    48% 48% 22% 22%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #efceb0,
+      #b9775d
+    );
+
+  box-shadow:
+    0 25px 30px rgba(0,0,0,.12);
+}
+
+.store-object::before{
+  content:"";
+
+  width:75px;
+  height:50px;
+
+  position:absolute;
+
+  top:-36px;
+  left:85px;
+
+  border-radius:
+    12px
+    12px
+    0
+    0;
+
+  background:#3d3d37;
+}
+
+
+/* =========================================================
+   ACTIVE CARD CAPTION
+========================================================= */
+
+.card-caption{
+  position:absolute;
+
+  left:20px;
+  right:20px;
+  bottom:16px;
+
+  z-index:20;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  pointer-events:none;
+
+  opacity:0;
+
+  transform:
+    translateY(10px);
+
+  transition:.4s ease;
+}
+
+.website-card.active .card-caption{
+  opacity:1;
+
+  transform:
+    translateY(0);
+}
+
+.card-caption span{
+  padding:
+    7px
+    11px;
+
+  border-radius:20px;
+
+  background:
+    rgba(0,0,0,.65);
+
+  backdrop-filter:blur(8px);
+
+  color:#fff;
+
+  font-size:9px;
+  font-weight:700;
+
+  letter-spacing:.5px;
+}
+
+.card-caption button{
+  height:32px;
+
+  padding:0 12px;
+
+  border:none;
+
+  border-radius:20px;
+
+  background:#fff;
+
+  color:#111;
+
+  font-size:8px;
+
+  font-weight:700;
+
+  pointer-events:auto;
+}
+
+
+/* =========================================================
+   CAROUSEL DOTS
+========================================================= */
+
+.carousel-controls{
+  margin-top:5px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:14px;
+
+  position:relative;
+
+  z-index:20;
+}
+
+.carousel-arrow{
+  width:34px;
+  height:34px;
+
+  border:1px solid rgba(255,255,255,.22);
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.08);
+
+  color:#fff;
+
+  font-size:16px;
+
+  transition:.2s;
+}
+
+.carousel-arrow:hover{
+  background:
+    rgba(255,255,255,.17);
+}
+
+.carousel-dots{
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+}
+
+.carousel-dot{
+  width:6px;
+  height:6px;
+
+  padding:0;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.32);
+
+  transition:.3s;
+}
+
+.carousel-dot.active{
+  width:22px;
+
+  border-radius:10px;
+
+  background:#fff;
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.products-section{
+  max-width:1150px;
+
+  margin:auto;
+
+  padding:
+    90px
+    22px;
+}
+
+.section-label{
+  margin-bottom:13px;
+
+  color:#888;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  letter-spacing:1.7px;
+
+  text-transform:uppercase;
+}
+
+.products-section h2{
+  max-width:750px;
+
+  margin-bottom:18px;
+
+  font-size:45px;
+
+  line-height:1.05;
+
+  letter-spacing:-2px;
+
+  font-weight:500;
+}
+
+.products-description{
+  max-width:620px;
+
+  color:#666;
+
+  font-size:15px;
+
+  line-height:1.7;
+}
+
+.products-grid{
+  margin-top:40px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:15px;
+}
+
+.product-card{
+  min-height:225px;
+
+  padding:24px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:flex-end;
+
+  background:#f4f4f1;
+
+  border-radius:4px;
+
+  transition:.3s ease;
+}
+
+.product-card:hover{
+  transform:
+    translateY(-5px);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.07);
+}
+
+.product-card small{
+  margin-bottom:auto;
+
+  color:#999;
+
+  font-size:9px;
+
+  font-weight:700;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
+}
+
+.product-card h3{
+  margin-bottom:9px;
+
+  font-size:21px;
+}
+
+.product-card p{
+  color:#666;
+
+  font-size:13px;
+
+  line-height:1.6;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta{
+  padding:
+    90px
+    20px;
+
+  text-align:center;
+
+  background:#111;
+
+  color:#fff;
+}
+
+.final-cta h2{
+  max-width:700px;
+
+  margin:
+    0 auto
+    18px;
+
+  font-size:45px;
+
+  line-height:1.05;
+
+  letter-spacing:-2px;
+
+  font-weight:500;
+}
+
+.final-cta p{
+  max-width:600px;
+
+  margin:
+    0 auto
+    25px;
+
+  color:#999;
+
+  line-height:1.7;
+}
+
+.final-cta button{
+  height:48px;
+
+  padding:0 22px;
+
+  border:none;
+
+  background:#fff;
+
+  color:#111;
+
+  font-size:11px;
+
+  font-weight:700;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu-button{
+  width:42px;
+  height:42px;
+
+  display:none;
+
+  border:none;
+
+  background:transparent;
+}
+
+.mobile-menu-button span{
+  width:22px;
+  height:2px;
+
+  display:block;
+
+  margin:5px auto;
+
+  background:#111;
+}
+
+.mobile-menu{
+  display:none;
+
+  position:fixed;
+
+  top:68px;
+  left:0;
+
+  width:100%;
+  height:calc(100vh - 68px);
+
+  z-index:4500;
+
+  padding:
+    20px
+    18px;
+
+  overflow:auto;
+
+  background:#fff;
+}
+
+.mobile-menu.active{
+  display:block;
+}
+
+.mobile-link{
+  width:100%;
+
+  padding:
+    17px
+    2px;
+
+  display:block;
+
+  border:none;
+  border-bottom:1px solid #eee;
+
+  background:#fff;
+
+  text-align:left;
+
+  font-size:15px;
+  font-weight:700;
+}
+
+.mobile-auth{
+  margin-top:20px;
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:9px;
+}
+
+.mobile-auth button{
+  height:46px;
+
+  border:1px solid #111;
+
+  font-weight:700;
+}
+
+.mobile-auth button:last-child{
+  background:#111;
+
+  color:#fff;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1000px){
+
+  .navbar{
+    height:68px;
+
+    grid-template-columns:
+      1fr auto;
+
+    padding:0 18px;
+  }
+
+  .nav-center,
+  .nav-right{
+    display:none;
+  }
+
+  .mobile-menu-button{
+    display:block;
+  }
+
+  .hero h1{
+    font-size:53px;
+
+    letter-spacing:-3px;
+  }
+
+
+  .carousel-stage{
+    height:400px;
+  }
+
+
+  .website-card{
+    width:620px;
+    height:340px;
+  }
+
+
+  .website-card.prev{
+    transform:
+      translateX(calc(-50% - 475px))
+      scale(.76)
+      rotate(-2.8deg);
+  }
+
+
+  .website-card.next{
+    transform:
+      translateX(calc(-50% + 475px))
+      scale(.76)
+      rotate(2.8deg);
+  }
+
+
+  .website-card.far-prev{
+    transform:
+      translateX(calc(-50% - 760px))
+      scale(.55);
+  }
+
+
+  .website-card.far-next{
+    transform:
+      translateX(calc(-50% + 760px))
+      scale(.55);
+  }
+
+
+  .wellness-title{
+    font-size:72px;
+  }
+
+
+  .tutor-title{
+    font-size:48px;
+  }
+
+
+  .products-grid{
+    grid-template-columns:
+      1fr
+      1fr;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+  .logo{
+    font-size:19px;
+  }
+
+
+  .hero{
+    min-height:70vh;
+
+    padding:
+      108px
+      17px
+      44px;
+  }
+
+
+  .hero h1{
+    font-size:42px;
+
+    letter-spacing:-2px;
+  }
+
+
+  .hero-description{
+    font-size:15px;
+  }
+
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+
+  .hero-buttons button{
+    width:100%;
+  }
+
+
+  .template-showcase{
+    padding:
+      35px
+      0
+      42px;
+  }
+
+
+  .showcase-header{
+    margin-bottom:10px;
+  }
+
+
+  .showcase-header h2{
+    font-size:22px;
+  }
+
+
+  .showcase-header p{
+    font-size:11px;
+  }
+
+
+  .carousel-stage{
+    height:300px;
+  }
+
+
+  .website-card{
+    width:82vw;
+    height:245px;
+
+    top:20px;
+
+    border-radius:10px;
+  }
+
+
+  .website-card.prev{
+    opacity:.62;
+
+    transform:
+      translateX(calc(-50% - 72vw))
+      scale(.79)
+      rotate(-3deg);
+  }
+
+
+  .website-card.next{
+    opacity:.62;
+
+    transform:
+      translateX(calc(-50% + 72vw))
+      scale(.79)
+      rotate(3deg);
+  }
+
+
+  .website-card.far-prev{
+    transform:
+      translateX(calc(-50% - 120vw))
+      scale(.55);
+  }
+
+
+  .website-card.far-next{
+    transform:
+      translateX(calc(-50% + 120vw))
+      scale(.55);
+  }
+
+
+  .mock-nav{
+    height:37px;
+
+    padding:
+      0
+      12px;
+
+    font-size:5px;
+  }
+
+
+  .mock-nav-links{
+    gap:8px;
+  }
+
+
+  .mock-pill{
+    padding:
+      4px
+      7px;
+  }
+
+
+  .barber-big{
+    width:165px;
+
+    left:13px;
+    top:67px;
+
+    font-size:21px;
+
+    letter-spacing:-1px;
+  }
+
+
+  .barber-image{
+    width:95px;
+    height:120px;
+
+    right:14px;
+    top:50px;
+  }
+
+
+  .barber-book{
+    left:13px;
+
+    bottom:30px;
+
+    font-size:6px;
+  }
+
+
+  .wellness-title{
+    left:15px;
+    top:53px;
+
+    font-size:46px;
+
+    letter-spacing:-4px;
+  }
+
+
+  .wellness-title small{
+    font-size:7px;
+  }
+
+
+  .wellness-floor{
+    height:85px;
+  }
+
+
+  .wellness-block-one{
+    width:35px;
+    height:55px;
+
+    left:53px;
+    bottom:47px;
+  }
+
+
+  .wellness-block-two{
+    width:55px;
+    height:38px;
+
+    left:92px;
+    bottom:33px;
+  }
+
+
+  .wellness-light{
+    width:135px;
+    height:85px;
+
+    right:15px;
+    top:78px;
+  }
+
+
+  .tutor-title{
+    font-size:30px;
+  }
+
+
+  .tutor-author{
+    margin-top:28px;
+
+    font-size:5px;
+  }
+
+
+  .tutor-copy{
+    width:140px;
+
+    margin-top:35px;
+
+    font-size:6px;
+  }
+
+
+  .portfolio-main{
+    padding:
+      17px
+      15px;
+  }
+
+
+  .portfolio-title{
+    width:195px;
+
+    margin-top:12px;
+
+    font-size:29px;
+
+    letter-spacing:-1.5px;
+  }
+
+
+  .portfolio-grid{
+    right:13px;
+    bottom:13px;
+
+    grid-template-columns:
+      57px
+      57px;
+
+    gap:5px;
+  }
+
+
+  .portfolio-grid div{
+    height:50px;
+  }
+
+
+  .store-title{
+    padding:
+      18px
+      15px;
+
+    font-size:31px;
+  }
+
+
+  .store-object{
+    width:120px;
+    height:88px;
+
+    right:15px;
+    bottom:18px;
+  }
+
+
+  .store-object::before{
+    width:40px;
+    height:28px;
+
+    top:-20px;
+    left:40px;
+  }
+
+
+  .card-caption{
+    left:10px;
+    right:10px;
+    bottom:9px;
+  }
+
+
+  .card-caption span{
+    font-size:6px;
+  }
+
+
+  .card-caption button{
+    height:27px;
+
+    padding:0 9px;
+
+    font-size:6px;
+  }
+
+
+  .products-section{
+    padding:
+      70px
+      18px;
+  }
+
+
+  .products-section h2{
+    font-size:35px;
+  }
+
+
+  .products-grid{
+    grid-template-columns:1fr;
+  }
+
+
+  .final-cta{
+    padding:
+      70px
+      18px;
+  }
+
+
+  .final-cta h2{
+    font-size:35px;
+  }
+
+}
+
+
+
+/* =========================================================
+   FULL SCREEN AUTH — SITEORA
+   LEFT = WEBSITE INFORMATION
+   RIGHT = LOGIN / SIGNUP
+========================================================= */
+
+.auth-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:block;
+  padding:0;
+  background:#fff;
+}
+
+.auth-overlay.hidden{display:none!important;}
+
+.auth-modal{
+  width:100%;
+  height:100vh;
+  min-height:100vh;
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  overflow:hidden;
+  border-radius:0;
+  background:#fff;
+  box-shadow:none;
+}
+
+.auth-info{
+  position:relative;
+  min-width:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:64px 7vw 54px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 18% 15%,rgba(255,255,255,.13),transparent 27%),
+    radial-gradient(circle at 82% 82%,rgba(255,255,255,.08),transparent 30%),
+    linear-gradient(145deg,#151515 0%,#242424 52%,#0d0d0d 100%);
+  color:#fff;
+}
+
+.auth-info::before{
+  content:"";
+  position:absolute;
+  width:430px;
+  height:430px;
+  right:-180px;
+  top:-175px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:50%;
+  box-shadow:0 0 0 55px rgba(255,255,255,.025),0 0 0 110px rgba(255,255,255,.014);
+}
+
+.auth-info::after{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  left:-150px;
+  bottom:-150px;
+  border-radius:50%;
+  background:rgba(255,255,255,.045);
+}
+
+.auth-info-content{position:relative;z-index:2;max-width:560px;}
+
+.auth-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:11vh;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.auth-brand-mark{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:10px;
+  font-size:15px;
+}
+
+.auth-info-kicker{
+  margin-bottom:14px;
+  color:#bdbdbd;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.auth-info h3{
+  max-width:520px;
+  margin-bottom:20px;
+  font-size:clamp(42px,4.2vw,68px);
+  line-height:.98;
+  letter-spacing:-3px;
+  font-weight:650;
+}
+
+.auth-info-text{
+  max-width:470px;
+  color:#c9c9c9;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.auth-benefits{position:relative;z-index:2;display:grid;gap:14px;margin-top:38px;}
+.auth-benefit{display:flex;align-items:center;gap:12px;color:#e4e4e4;font-size:12px;}
+.auth-benefit-icon{width:25px;height:25px;flex:0 0 25px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.20);border-radius:50%;font-size:11px;}
+.auth-info-footer{position:relative;z-index:2;color:#858585;font-size:10px;letter-spacing:.8px;}
+
+.auth-form-side{
+  position:relative;
+  min-width:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:56px 7vw;
+  overflow-y:auto;
+  background:#fff;
+}
+
+.auth-close{
+  width:42px;
+  height:42px;
+  position:absolute;
+  top:26px;
+  right:28px;
+  z-index:5;
+  border:none;
+  border-radius:50%;
+  background:#f2f2f2;
+  color:#222;
+  font-size:24px;
+  line-height:1;
+  transition:.2s ease;
+}
+.auth-close:hover{background:#e8e8e8;transform:rotate(90deg);}
+
+.auth-form-inner{width:100%;max-width:455px;}
+.auth-kicker{margin-bottom:10px;color:#888;font-size:10px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;}
+.auth-modal h2{margin-bottom:10px;color:#111;font-size:40px;letter-spacing:-1.8px;line-height:1.08;font-weight:700;}
+.auth-description{margin-bottom:30px;color:#747474;font-size:13px;line-height:1.65;}
+.auth-field{margin-bottom:15px;}
+.auth-field label{display:block;margin-bottom:8px;color:#222;font-size:11px;font-weight:800;}
+.auth-field input{width:100%;height:52px;padding:0 15px;border:1px solid #d8d8d8;border-radius:10px;outline:none;background:#fff;color:#111;font-size:13px;transition:.2s ease;}
+.auth-field input::placeholder{color:#aaa;}
+.auth-field input:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,.05);}
+.auth-submit{width:100%;height:52px;margin-top:4px;border:none;border-radius:10px;background:#111;color:#fff;font-size:11px;font-weight:900;letter-spacing:.7px;transition:.2s ease;}
+.auth-submit:hover{background:#2a2a2a;transform:translateY(-1px);}
+.auth-message{display:none;margin-bottom:14px;padding:11px 12px;border-radius:8px;font-size:11px;line-height:1.45;}
+.auth-message.error{display:block;background:#fff0f0;color:#a41414;}
+.auth-message.success{display:block;background:#effbf2;color:#17642c;}
+.auth-switch{margin-top:20px;text-align:center;color:#777;font-size:11px;}
+.auth-switch button{border:none;background:transparent;color:#111;font-weight:800;text-decoration:underline;}
+.local-user-chip{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* Gmail + Get OTP in one line */
+.login-email-row{display:grid;grid-template-columns:1fr 118px;gap:9px;align-items:end;margin-bottom:14px;}
+.login-email-row .auth-field{margin-bottom:0;}
+.get-otp-btn{
+  height:52px;
+  border:1px solid #111;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.2s ease;
+}
+.get-otp-btn:hover{background:#2a2a2a;}
+.get-otp-btn:disabled{opacity:.72;cursor:not-allowed;}
+.otp-spinner{width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;display:none;animation:siteoraSpin .75s linear infinite;}
+.get-otp-btn.loading .otp-spinner{display:inline-block;}
+.get-otp-btn.loading .get-otp-text{display:none;}
+@keyframes siteoraSpin{to{transform:rotate(360deg)}}
+
+.login-otp-wrap{margin-top:4px;animation:otpReveal .28s ease;}
+@keyframes otpReveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.login-otp-actions{display:flex;align-items:center;justify-content:space-between;margin:5px 0 14px;font-size:10px;color:#777;}
+.login-otp-actions button{border:none;background:transparent;font-size:10px;font-weight:800;text-decoration:underline;}
+
+@media(max-width:800px){
+  .auth-modal{grid-template-columns:1fr;height:100vh;overflow-y:auto;}
+  .auth-info{height:auto;min-height:300px;padding:38px 28px 32px;}
+  .auth-brand{margin-bottom:45px;}
+  .auth-info h3{font-size:38px;letter-spacing:-2px;}
+  .auth-benefits{display:none;}
+  .auth-info-footer{margin-top:28px;}
+  .auth-form-side{height:auto;min-height:calc(100vh - 300px);padding:58px 28px 45px;overflow:visible;}
+  .auth-form-inner{max-width:520px;}
+  .auth-close{top:18px;right:18px;}
+}
+
+@media(max-width:480px){
+  .auth-info{min-height:250px;padding:28px 20px 25px;}
+  .auth-brand{margin-bottom:28px;font-size:19px;}
+  .auth-brand-mark{width:31px;height:31px;}
+  .auth-info h3{font-size:30px;letter-spacing:-1.5px;}
+  .auth-info-text{font-size:12px;line-height:1.6;}
+  .auth-form-side{padding:55px 20px 35px;}
+  .auth-modal h2{font-size:32px;}
+  .login-email-row{grid-template-columns:1fr 105px;gap:7px;}
+  .get-otp-btn{font-size:9px;}
+}
+
+/* =========================================================
+   SIGNUP GMAIL + GOOGLE + OTP
+========================================================= */
+.google-continue{
+  width:100%;
+  height:49px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  border:1px solid #d9d9d9;
+  border-radius:9px;
+  background:#fff;
+  color:#222;
+  font-size:12px;
+  font-weight:700;
+  transition:.2s ease;
+}
+.google-continue:hover{
+  background:#f8f8f8;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.google-g{
+  font-family:Arial,sans-serif;
+  font-size:18px;
+  font-weight:900;
+  line-height:1;
+}
+.auth-or{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:18px 0;
+}
+.auth-or span{
+  height:1px;
+  flex:1;
+  background:#e7e7e7;
+}
+.auth-or b{
+  color:#aaa;
+  font-size:9px;
+  font-weight:800;
+}
+.otp-boxes{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:7px;
+  margin:10px 0 14px;
+}
+.otp-input{
+  width:100%;
+  height:52px;
+  border:1px solid #d9d9d9;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+  color:#111;
+  text-align:center;
+  font-size:19px;
+  font-weight:800;
+  transition:.2s ease;
+}
+.otp-input:focus{
+  border-color:#111;
+  box-shadow:0 0 0 3px rgba(0,0,0,.055);
+}
+.demo-otp-hint{
+  display:block;
+  margin-bottom:13px;
+  padding:10px 11px;
+  border-radius:8px;
+  background:#f4f4f4;
+  color:#555;
+  font-size:10px;
+  line-height:1.5;
+}
+.demo-otp-hint.hidden{
+  display:none!important;
+}
+.back-auth-button{
+  width:100%;
+  height:42px;
+  margin-top:10px;
+  border:none;
+  background:transparent;
+  color:#555;
+  font-size:11px;
+  font-weight:700;
+}
+.back-auth-button:hover{
+  color:#111;
+}
+@media(max-width:420px){
+  .otp-boxes{
+    gap:5px;
+  }
+  .otp-input{
+    height:47px;
+    font-size:17px;
+  }
+}
+
+
+
+/* SIGNUP — ALL FIELDS ON ONE SCREEN */
+#signupPanel .auth-description{margin-bottom:18px;}
+#signupPanel .auth-field{margin-bottom:11px;}
+#signupPanel .login-email-row{margin-bottom:11px;}
+#signupPanel .login-otp-wrap{margin-top:4px;margin-bottom:12px;}
+#signupPanel .auth-submit{margin-top:6px;}
+
+/* FIX: keep Full Name + Gmail + Password + Confirm Password visible together */
+#signupPanel{width:100%;}
+#signupPanel .auth-kicker{margin-bottom:6px;}
+#signupPanel h2{margin-bottom:6px;font-size:34px;}
+#signupPanel .auth-description{margin-bottom:14px;}
+#signupPanel .auth-field{margin-bottom:9px;}
+#signupPanel .auth-field label{margin-bottom:5px;}
+#signupPanel .auth-field input{height:46px;}
+#signupPanel .login-email-row{margin-bottom:9px;}
+#signupPanel .get-otp-btn{height:46px;}
+#signupPanel .auth-submit{height:48px;}
+#signupPanel .auth-switch{margin-top:12px;}
+@media (max-height:760px) and (min-width:801px){
+  .auth-form-side{align-items:flex-start;padding-top:34px;padding-bottom:25px;}
+  #signupPanel h2{font-size:30px;}
+  #signupPanel .auth-description{margin-bottom:10px;}
+  #signupPanel .auth-field{margin-bottom:7px;}
+  #signupPanel .auth-field input,#signupPanel .get-otp-btn{height:43px;}
+}
+
+
+/* =========================================================
+   DASHBOARD / CREATE WEBSITE / EDITOR — LOCAL STORAGE
+========================================================= */
+.dashboard-screen{min-height:100vh;background:#f6f6f4;position:fixed;inset:0;z-index:7000;overflow:auto}.dashboard-topbar{height:74px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #e5e5e5}.dashboard-actions{display:flex;align-items:center;gap:12px}.dash-btn{height:42px;padding:0 17px;border:1px solid #ddd;background:#fff;font-size:11px;font-weight:800}.dash-btn.primary{background:#111;color:#fff;border-color:#111}.dash-user{width:40px;height:40px;border:none;border-radius:50%;background:#ececec;font-weight:800}.dashboard-main{max-width:1180px;margin:auto;padding:48px 22px 70px}.dashboard-main h1{font-size:38px;font-weight:500;letter-spacing:-1.5px;margin-bottom:7px}.dashboard-sub{color:#777;margin-bottom:30px}.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}.dash-stat{background:#fff;border:1px solid #e4e4e4;padding:23px}.dash-stat span{display:block;color:#888;font-size:10px;font-weight:800;letter-spacing:1.3px;margin-bottom:14px}.dash-stat strong{font-size:30px;font-weight:500}.dash-section-title{font-size:22px;margin-bottom:15px}.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.new-project,.project-card{min-height:220px;background:#fff;border:1px solid #e2e2e2}.new-project{display:flex;flex-direction:column;align-items:center;justify-content:center;border-style:dashed;cursor:pointer}.new-project b{font-size:38px;font-weight:300;margin-bottom:8px}.new-project span{color:#777;font-size:12px;margin-top:5px}.project-card{padding:18px;cursor:pointer;transition:.25s}.project-card:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(0,0,0,.07)}.project-thumb{height:110px;margin-bottom:15px;border-radius:8px;padding:16px;display:flex;align-items:flex-end;background:linear-gradient(135deg,#1b2b36,#657d8e);color:#fff;font-size:10px;font-weight:800;letter-spacing:1px}.project-card h3{font-size:18px;margin-bottom:8px}.project-meta{display:flex;justify-content:space-between;color:#777;font-size:11px}.status-pill{padding:4px 8px;background:#f2f2f2;border-radius:20px;font-size:9px;font-weight:800;text-transform:uppercase}
+
+.create-site-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px}.create-site-modal{width:100%;max-width:520px;background:#fff;border-radius:16px;padding:28px}.create-site-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.create-site-head h2{font-size:26px;font-weight:500}.create-close{width:38px;height:38px;border:none;border-radius:50%;background:#f2f2f2;font-size:20px}.create-field{margin-bottom:16px}.create-field label{display:block;margin-bottom:7px;font-size:11px;font-weight:800}.create-field input{width:100%;height:50px;padding:0 13px;border:1px solid #d7d7d7;border-radius:9px;outline:none}.type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:18px}.type-choice{height:44px;border:1px solid #ddd;border-radius:9px;background:#fff;font-weight:700;font-size:11px}.type-choice.active{background:#111;color:#fff;border-color:#111}.template-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}.template-choice{min-height:70px;border:1px solid #ddd;border-radius:10px;background:#f7f7f5;padding:10px;text-align:left;font-size:10px;font-weight:800}.template-choice.active{outline:2px solid #111;background:#fff}.create-full{width:100%;height:50px;border:none;border-radius:9px;background:#111;color:#fff;font-weight:800}.create-msg{min-height:18px;margin-bottom:10px;color:#b91c1c;font-size:11px}
+
+.editor-screen{position:fixed;inset:0;z-index:8000;background:#ededeb}.editor-top{height:64px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid #ddd}.editor-left-top,.editor-right-top{display:flex;align-items:center;gap:9px}.editor-name{font-size:14px;font-weight:800}.editor-status{font-size:10px;color:#777}.editor-btn{height:38px;padding:0 13px;border:1px solid #ddd;background:#fff;font-size:10px;font-weight:800}.editor-btn.active,.editor-btn.publish{background:#111;color:#fff;border-color:#111}.editor-layout{height:calc(100vh - 64px);display:grid;grid-template-columns:220px 1fr 280px}.editor-sidebar,.editor-settings{background:#fff;overflow:auto}.editor-sidebar{border-right:1px solid #ddd}.editor-settings{border-left:1px solid #ddd}.editor-panel-title{padding:16px;color:#888;font-size:9px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;border-bottom:1px solid #eee}.editor-tools{padding:12px}.editor-tool{width:100%;padding:12px;margin-bottom:7px;border:none;background:#f5f5f3;text-align:left;font-size:11px;font-weight:700}.editor-canvas{overflow:auto;padding:24px}.preview-shell{display:flex;justify-content:center}.preview-frame{width:100%;max-width:1050px;min-height:700px;background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.08);transition:.25s}.preview-frame.tablet{max-width:768px}.preview-frame.mobile{max-width:390px}.site-preview{min-height:700px}.site-nav{height:70px;padding:0 30px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee}.site-brand{font-weight:800}.site-links{display:flex;gap:20px;font-size:11px}.site-hero{min-height:500px;padding:60px 40px;display:flex;align-items:center;justify-content:center;text-align:center;background:#f5f5f2}.site-hero-inner{max-width:720px}.site-hero h1{font-size:56px;line-height:1.03;font-weight:500;margin-bottom:18px}.site-hero p{color:#666;line-height:1.7;margin-bottom:24px}.site-hero button{height:46px;padding:0 22px;border:none;background:#111;color:#fff;font-weight:800}.site-section{padding:65px 40px}.site-section h2{font-size:36px;font-weight:500;margin-bottom:14px}.site-section p{max-width:650px;color:#666;line-height:1.7}.editable{cursor:pointer}.editable.selected{outline:2px solid #111;outline-offset:4px}.settings-body{padding:16px}.settings-body p{color:#777;font-size:11px;line-height:1.6}.settings-body label{display:block;font-size:10px;font-weight:800;margin-bottom:6px}.settings-body textarea,.settings-body input{width:100%;padding:10px;border:1px solid #ddd;margin-bottom:12px;outline:none}.settings-body textarea{min-height:100px;resize:vertical}.danger-link{width:100%;height:40px;border:1px solid #efcaca;background:#fff;color:#b91c1c;font-size:10px;font-weight:800}
+
+@media(max-width:950px){.dash-stats{grid-template-columns:1fr}.projects-grid{grid-template-columns:1fr 1fr}.editor-layout{grid-template-columns:190px 1fr}.editor-settings{display:none}}
+@media(max-width:650px){.dashboard-topbar{padding:0 14px}.dashboard-main{padding:35px 16px 55px}.dashboard-main h1{font-size:30px}.projects-grid{grid-template-columns:1fr}.dash-btn:not(.primary){display:none}.editor-top{height:auto;min-height:64px;flex-wrap:wrap;padding:8px}.editor-layout{height:calc(100vh - 88px);grid-template-columns:1fr}.editor-sidebar{display:none}.editor-canvas{padding:10px}.site-links{display:none}.site-hero h1{font-size:38px}.template-row{grid-template-columns:1fr}}
+
+</style>
+<!-- Supabase JS for real Gmail OTP authentication -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+  <div
+    class="logo"
+    onclick="goHome()"
+  >
+    SITEORA
+  </div>
+
+
+  <div class="nav-center">
+
+
+    <!-- PRODUCTS -->
+
+    <div class="nav-item">
+
+      <div class="nav-link">
+        Products
+      </div>
+
+
+      <div class="dropdown large">
+
+        <div class="dropdown-title">
+          Products
+        </div>
+
+
+        <div class="dropdown-grid">
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Website Builder
+            </strong>
+
+            <span>
+              Create professional websites without coding.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Online Store
+            </strong>
+
+            <span>
+              Build a modern online storefront.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Portfolio
+            </strong>
+
+            <span>
+              Showcase your creative work.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Blog
+            </strong>
+
+            <span>
+              Publish stories and content.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Scheduling
+            </strong>
+
+            <span>
+              Accept bookings online.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Analytics
+            </strong>
+
+            <span>
+              Understand your website performance.
+            </span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- TEMPLATES -->
+
+    <div class="nav-item">
+
+      <div class="nav-link">
+        Templates
+      </div>
+
+
+      <div class="dropdown">
+
+        <div class="dropdown-title">
+          Templates
+        </div>
+
+
+        <a
+          href="#templates"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Business
+          </strong>
+
+          <span>
+            Professional business designs.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#templates"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Online Store
+          </strong>
+
+          <span>
+            Ecommerce website designs.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#templates"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Portfolio
+          </strong>
+
+          <span>
+            Creative portfolio layouts.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#templates"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Restaurant
+          </strong>
+
+          <span>
+            Restaurant and cafe websites.
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- FEATURES -->
+
+    <div class="nav-item">
+
+      <div class="nav-link">
+        Features
+      </div>
+
+
+      <div class="dropdown large">
+
+        <div class="dropdown-title">
+          Features
+        </div>
+
+
+        <div class="dropdown-grid">
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Visual Editor
+            </strong>
+
+            <span>
+              Edit your website visually.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Mobile Responsive
+            </strong>
+
+            <span>
+              Works beautifully on every device.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Fonts & Styles
+            </strong>
+
+            <span>
+              Customize your website design.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Fast Publishing
+            </strong>
+
+            <span>
+              Publish your website quickly.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              SEO Tools
+            </strong>
+
+            <span>
+              Improve your search visibility.
+            </span>
+
+          </a>
+
+
+          <a
+            href="#products"
+            class="dropdown-item"
+          >
+
+            <strong>
+              Custom Domain
+            </strong>
+
+            <span>
+              Connect your own website domain.
+            </span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RESOURCES -->
+
+    <div class="nav-item">
+
+      <div class="nav-link">
+        Resources
+      </div>
+
+
+      <div class="dropdown">
+
+        <div class="dropdown-title">
+          Resources
+        </div>
+
+
+        <a
+          href="#products"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Help Center
+          </strong>
+
+          <span>
+            Find answers and guides.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#products"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Tutorials
+          </strong>
+
+          <span>
+            Learn how SITEORA works.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#products"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Support
+          </strong>
+
+          <span>
+            Get help from our team.
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- PRICING -->
+
+    <div class="nav-item">
+
+      <div class="nav-link">
+        Pricing
+      </div>
+
+
+      <div class="dropdown">
+
+        <div class="dropdown-title">
+          Pricing
+        </div>
+
+
+        <a
+          href="#pricing"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Free
+          </strong>
+
+          <span>
+            Start building for free.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#pricing"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Basic
+          </strong>
+
+          <span>
+            Essential website tools.
+          </span>
+
+        </a>
+
+
+        <a
+          href="#pricing"
+          class="dropdown-item"
+        >
+
+          <strong>
+            Pro
+          </strong>
+
+          <span>
+            Advanced professional tools.
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="nav-right">
+
+    <button
+      class="login-btn"
+      onclick="openLogin()"
+    >
+      LOG IN
+    </button>
+
+
+    <button
+      class="get-started-btn"
+      onclick="openSignup()"
+    >
+      GET STARTED
+    </button>
+
+  </div>
+
+
+
+  <button
+    class="mobile-menu-button"
+    onclick="toggleMobileMenu()"
+  >
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </button>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MOBILE MENU
+========================================================= -->
+
+<div
+  class="mobile-menu"
+  id="mobileMenu"
+>
+
+  <button
+    class="mobile-link"
+    onclick="scrollToSection('products')"
+  >
+    Products
+  </button>
+
+
+  <button
+    class="mobile-link"
+    onclick="scrollToSection('templates')"
+  >
+    Templates
+  </button>
+
+
+  <button
+    class="mobile-link"
+    onclick="scrollToSection('products')"
+  >
+    Features
+  </button>
+
+
+  <button
+    class="mobile-link"
+    onclick="scrollToSection('products')"
+  >
+    Resources
+  </button>
+
+
+  <button
+    class="mobile-link"
+    onclick="scrollToSection('pricing')"
+  >
+    Pricing
+  </button>
+
+
+  <div class="mobile-auth">
+
+    <button onclick="openLogin()">
+      LOG IN
+    </button>
+
+    <button onclick="openSignup()">
+      GET STARTED
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-label">
+      Website builder for everyone
+    </div>
+
+
+    <h1>
+      A website makes it real.
+    </h1>
+
+
+    <p class="hero-description">
+
+      Turn your ideas into a beautiful,
+      professional website. Build your brand,
+      showcase your work and grow your online
+      presence with SITEORA.
+
+    </p>
+
+
+    <div class="hero-buttons">
+
+      <button
+        class="hero-primary"
+        onclick="openSignup()"
+      >
+        START BUILDING
+      </button>
+
+
+      <button
+        class="hero-secondary"
+        onclick="scrollToSection('templates')"
+      >
+        EXPLORE TEMPLATES
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOVING TEMPLATE CAROUSEL
+========================================================= -->
+
+<section
+  class="template-showcase"
+  id="templates"
+>
+
+
+  <div class="showcase-header">
+
+    <div class="showcase-label">
+      Website Inspiration
+    </div>
+
+
+    <h2>
+      Find your perfect starting point.
+    </h2>
+
+
+    <p>
+      Click a side design or wait — every 2 seconds
+      the next website moves into the center.
+    </p>
+
+  </div>
+
+
+
+  <div
+    class="carousel-stage"
+    id="carouselStage"
+  >
+
+
+    <!-- =====================================================
+         CARD 1
+    ====================================================== -->
+
+    <div
+      class="website-card"
+      data-index="0"
+      onclick="handleCardClick(0)"
+    >
+
+      <div class="mock-site barber-site">
+
+        <div class="mock-nav">
+
+          <strong>
+            BLACK BARBER
+          </strong>
+
+
+          <div class="mock-nav-links">
+
+            <span>
+              SERVICES
+            </span>
+
+            <span>
+              BOOK NOW
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="barber-big">
+
+          GOOD HAIR.<br>
+          GOOD MOOD.<br>
+          EVERYDAY.
+
+        </div>
+
+
+        <div class="barber-image"></div>
+
+
+        <div class="barber-book">
+          BOOK NOW
+        </div>
+
+      </div>
+
+
+      <div class="card-caption">
+
+        <span>
+          BARBER STUDIO
+        </span>
+
+        <button
+          onclick="openTemplate(event,0)"
+        >
+          PREVIEW
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CARD 2
+    ====================================================== -->
+
+    <div
+      class="website-card"
+      data-index="1"
+      onclick="handleCardClick(1)"
+    >
+
+      <div class="mock-site wellness-site">
+
+        <div class="mock-nav">
+
+          <strong>
+            BLNC
+          </strong>
+
+
+          <div class="mock-nav-links">
+
+            <span>
+              Services
+            </span>
+
+            <span>
+              Facilities
+            </span>
+
+            <span>
+              Memberships
+            </span>
+
+            <span class="mock-pill">
+              Bookings
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="wellness-title">
+
+          Balance
+
+          <small>
+            (WELLNESS CENTER)
+          </small>
+
+        </div>
+
+
+        <div class="wellness-light"></div>
+
+        <div class="wellness-block-one"></div>
+
+        <div class="wellness-block-two"></div>
+
+        <div class="wellness-floor"></div>
+
+      </div>
+
+
+      <div class="card-caption">
+
+        <span>
+          WELLNESS
+        </span>
+
+        <button
+          onclick="openTemplate(event,1)"
+        >
+          PREVIEW
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CARD 3
+    ====================================================== -->
+
+    <div
+      class="website-card"
+      data-index="2"
+      onclick="handleCardClick(2)"
+    >
+
+      <div class="mock-site tutor-site">
+
+        <div class="mock-nav">
+
+          <span>
+            SCOTT SMITH TUTORING
+          </span>
+
+
+          <div class="mock-nav-links">
+
+            <span>
+              Lessons
+            </span>
+
+            <span>
+              Testimonials
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="tutor-content">
+
+          <div class="tutor-title">
+
+            ACADEMIC<br>
+            LESSONS
+
+          </div>
+
+
+          <div class="tutor-author">
+            BY SCOTT SMITH
+          </div>
+
+
+          <div class="tutor-copy">
+
+            Personalized academic tutoring
+            to build confidence, strengthen
+            skills and support success.
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card-caption">
+
+        <span>
+          EDUCATION
+        </span>
+
+        <button
+          onclick="openTemplate(event,2)"
+        >
+          PREVIEW
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CARD 4
+    ====================================================== -->
+
+    <div
+      class="website-card"
+      data-index="3"
+      onclick="handleCardClick(3)"
+    >
+
+      <div class="mock-site portfolio-site">
+
+        <div class="mock-nav">
+
+          <strong>
+            NORTH STUDIO
+          </strong>
+
+
+          <div class="mock-nav-links">
+
+            <span>
+              WORK
+            </span>
+
+            <span>
+              ABOUT
+            </span>
+
+            <span>
+              CONTACT
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="portfolio-main">
+
+          <div class="portfolio-label">
+            CREATIVE STUDIO
+          </div>
+
+
+          <div class="portfolio-title">
+
+            DESIGN THAT
+            MAKES AN IMPACT.
+
+          </div>
+
+        </div>
+
+
+        <div class="portfolio-grid">
+
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card-caption">
+
+        <span>
+          PORTFOLIO
+        </span>
+
+        <button
+          onclick="openTemplate(event,3)"
+        >
+          PREVIEW
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CARD 5
+    ====================================================== -->
+
+    <div
+      class="website-card"
+      data-index="4"
+      onclick="handleCardClick(4)"
+    >
+
+      <div class="mock-site store-site">
+
+        <div class="mock-nav">
+
+          <strong>
+            FORM
+          </strong>
+
+
+          <div class="mock-nav-links">
+
+            <span>
+              SHOP
+            </span>
+
+            <span>
+              ABOUT
+            </span>
+
+            <span>
+              CART
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="store-title">
+
+          OBJECTS<br>
+          FOR EVERYDAY<br>
+          LIVING.
+
+        </div>
+
+
+        <div class="store-object"></div>
+
+      </div>
+
+
+      <div class="card-caption">
+
+        <span>
+          ONLINE STORE
+        </span>
+
+        <button
+          onclick="openTemplate(event,4)"
+        >
+          PREVIEW
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- =====================================================
+       CONTROLS
+  ====================================================== -->
+
+  <div class="carousel-controls">
+
+
+    <button
+      class="carousel-arrow"
+      onclick="previousSlide()"
+    >
+      ‹
+    </button>
+
+
+    <div class="carousel-dots">
+
+      <button
+        class="carousel-dot"
+        onclick="goToSlide(0)"
+      ></button>
+
+      <button
+        class="carousel-dot active"
+        onclick="goToSlide(1)"
+      ></button>
+
+      <button
+        class="carousel-dot"
+        onclick="goToSlide(2)"
+      ></button>
+
+      <button
+        class="carousel-dot"
+        onclick="goToSlide(3)"
+      ></button>
+
+      <button
+        class="carousel-dot"
+        onclick="goToSlide(4)"
+      ></button>
+
+    </div>
+
+
+    <button
+      class="carousel-arrow"
+      onclick="nextSlideManual()"
+    >
+      ›
+    </button>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     PRODUCTS
+========================================================= -->
+
+<section
+  class="products-section"
+  id="products"
+>
+
+
+  <div class="section-label">
+    SITEORA
+  </div>
+
+
+  <h2>
+    Everything you need to build your online presence.
+  </h2>
+
+
+  <p class="products-description">
+
+    Create a professional website,
+    customize every section and publish
+    your business online without complicated coding.
+
+  </p>
+
+
+
+  <div class="products-grid">
+
+
+    <div class="product-card">
+
+      <small>
+        Build
+      </small>
+
+
+      <h3>
+        Website Builder
+      </h3>
+
+
+      <p>
+
+        Create and customize professional
+        websites using a visual editor.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="product-card">
+
+      <small>
+        Sell
+      </small>
+
+
+      <h3>
+        Online Store
+      </h3>
+
+
+      <p>
+
+        Create a modern online storefront
+        for your products and business.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="product-card">
+
+      <small>
+        Showcase
+      </small>
+
+
+      <h3>
+        Portfolio
+      </h3>
+
+
+      <p>
+
+        Showcase your projects,
+        work and creative ideas beautifully.
+
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section
+  class="final-cta"
+  id="pricing"
+>
+
+
+  <h2>
+    Build something worth sharing.
+  </h2>
+
+
+  <p>
+
+    Choose a template, make it yours
+    and publish your website with SITEORA.
+
+  </p>
+
+
+  <button onclick="openSignup()">
+    GET STARTED
+  </button>
+
+
+</section>
+
+
+
+
+
+<!-- =========================================================
+     LOCAL LOGIN / SIGNUP
+========================================================= -->
+<div id="authOverlay" class="auth-overlay hidden" onclick="authBackdropClick(event)">
+  <div class="auth-modal" onclick="event.stopPropagation()">
+
+    <!-- LEFT: WEBSITE-RELATED INFORMATION -->
+    <div class="auth-info">
+
+      <div class="auth-info-content">
+
+        <div class="auth-brand">
+          <span class="auth-brand-mark">S</span>
+          <span>SITEORA</span>
+        </div>
+
+        <div class="auth-info-kicker">WEBSITE BUILDER</div>
+
+        <h3>
+          Turn your idea into a real website.
+        </h3>
+
+        <p class="auth-info-text">
+          Build beautiful websites, choose a professional template,
+          customize your content and create an online presence
+          that feels truly yours.
+        </p>
+
+        <div class="auth-benefits">
+
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Professional website templates</span>
+          </div>
+
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Simple and fast website building</span>
+          </div>
+
+          <div class="auth-benefit">
+            <span class="auth-benefit-icon">✓</span>
+            <span>Build, customize and publish</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="auth-info-footer">
+        CREATE • CUSTOMIZE • PUBLISH
+      </div>
+
+    </div>
+
+    <!-- RIGHT: LOGIN / SIGNUP -->
+    <div class="auth-form-side">
+
+      <button class="auth-close" onclick="closeAuth()">×</button>
+
+      <div class="auth-form-inner">
+
+        <div id="loginPanel">
+
+          <div class="auth-kicker">SITEORA ACCOUNT</div>
+
+          <h2>Welcome back.</h2>
+
+          <p class="auth-description">
+            Enter your Gmail, get an OTP and continue to your SITEORA dashboard.
+          </p>
+
+          <div id="loginMessage" class="auth-message"></div>
+
+          <div class="login-email-row">
+            <div class="auth-field">
+              <label>Gmail</label>
+              <input
+                id="loginEmail"
+                type="email"
+                placeholder="you@gmail.com"
+                autocomplete="email"
+              >
+            </div>
+
+            <button
+              id="loginGetOtpBtn"
+              class="get-otp-btn"
+              type="button"
+              onclick="sendLoginOTP()"
+            >
+              <span class="otp-spinner" aria-hidden="true"></span>
+              <span class="get-otp-text">GET OTP</span>
+            </button>
+          </div>
+
+          <div id="loginOtpWrap" class="login-otp-wrap hidden">
+            <div class="auth-field">
+              <label>OTP</label>
+              <input
+                id="loginOtp"
+                type="text"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                placeholder="Enter 6-digit OTP"
+              >
+            </div>
+
+            <div id="loginDemoOtpHint" class="demo-otp-hint hidden"></div>
+
+            <div class="login-otp-actions">
+              <span id="loginOtpSentText">OTP sent to your Gmail</span>
+              <button type="button" onclick="sendLoginOTP()">Resend OTP</button>
+            </div>
+
+            <button
+              class="auth-submit"
+              type="button"
+              onclick="verifyLoginOTP()"
+            >
+              VERIFY OTP & LOG IN
+            </button>
+          </div>
+
+          <div class="auth-switch">
+            Don't have an account?
+            <button onclick="showSignupPanel()">
+              Create account
+            </button>
+          </div>
+
+        </div>
+
+
+        <div id="signupPanel" class="hidden">
+
+          <div class="auth-kicker">CREATE ACCOUNT</div>
+
+          <h2>Create your account.</h2>
+
+          <p class="auth-description">
+            Enter your details, get an OTP on your Gmail and create your SITEORA account.
+          </p>
+
+          <div id="signupMessage" class="auth-message"></div>
+
+          <div class="auth-field">
+            <label>Full Name</label>
+            <input
+              id="signupName"
+              type="text"
+              placeholder="Enter your full name"
+              autocomplete="name"
+            >
+          </div>
+
+          <div class="login-email-row">
+            <div class="auth-field">
+              <label>Gmail</label>
+              <input
+                id="signupEmail"
+                type="email"
+                placeholder="you@gmail.com"
+                autocomplete="email"
+              >
+            </div>
+
+            <button
+              id="signupGetOtpBtn"
+              class="get-otp-btn"
+              type="button"
+              onclick="sendSignupOTP()"
+            >
+              <span class="otp-spinner" aria-hidden="true"></span>
+              <span class="get-otp-text">GET OTP</span>
+            </button>
+          </div>
+
+          <div class="auth-field">
+            <label>Password</label>
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="Minimum 6 characters"
+              autocomplete="new-password"
+            >
+          </div>
+
+          <div class="auth-field">
+            <label>Confirm Password</label>
+            <input
+              id="signupConfirmPassword"
+              type="password"
+              placeholder="Re-enter your password"
+              autocomplete="new-password"
+            >
+          </div>
+
+          <div id="signupOtpWrap" class="login-otp-wrap hidden">
+            <div class="auth-field">
+              <label>OTP</label>
+              <input
+                id="signupOtp"
+                type="text"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                placeholder="Enter 6-digit OTP"
+              >
+            </div>
+
+            <div id="demoOtpHint" class="demo-otp-hint hidden"></div>
+
+            <div class="login-otp-actions">
+              <span id="signupOtpSentText">OTP sent to your Gmail</span>
+              <button type="button" onclick="sendSignupOTP()">Resend OTP</button>
+            </div>
+          </div>
+
+          <button
+            class="auth-submit"
+            type="button"
+            onclick="verifySignupOTP()"
+          >
+            VERIFY OTP & CREATE ACCOUNT
+          </button>
+
+          <div class="auth-switch">
+            Already have an account?
+            <button onclick="showLoginPanel()">
+              Log in
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- =========================================================
+     LOCAL DASHBOARD
+========================================================= -->
+<div id="dashboardScreen" class="dashboard-screen hidden">
+  <div class="dashboard-topbar">
+    <div class="logo">SITEORA</div>
+    <div class="dashboard-actions">
+      <button class="dash-btn primary" onclick="openCreateWebsiteModal()">CREATE WEBSITE</button>
+      <button class="dash-user" id="dashUserBtn">U</button>
+      <button class="dash-btn" onclick="logoutFromDashboard()">LOG OUT</button>
+    </div>
+  </div>
+  <div class="dashboard-main">
+    <h1 id="dashboardWelcome">Welcome</h1>
+    <p class="dashboard-sub">Create and manage your websites.</p>
+    <div class="dash-stats">
+      <div class="dash-stat"><span>TOTAL WEBSITES</span><strong id="dashTotal">0</strong></div>
+      <div class="dash-stat"><span>PUBLISHED</span><strong id="dashPublished">0</strong></div>
+      <div class="dash-stat"><span>DRAFTS</span><strong id="dashDrafts">0</strong></div>
+    </div>
+    <h2 class="dash-section-title">My Websites</h2>
+    <div class="projects-grid" id="projectsGrid">
+      <div class="new-project" onclick="openCreateWebsiteModal()"><b>+</b><strong>Create New Website</strong><span>Start a new project</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE WEBSITE MODAL -->
+<div id="createSiteOverlay" class="create-site-overlay hidden" onclick="createSiteBackdrop(event)">
+  <div class="create-site-modal" onclick="event.stopPropagation()">
+    <div class="create-site-head"><h2>Create website</h2><button class="create-close" onclick="closeCreateWebsiteModal()">×</button></div>
+    <div class="create-field"><label>WEBSITE NAME</label><input id="localWebsiteName" type="text" placeholder="Example: Deepu Business"></div>
+    <div class="create-field"><label>WEBSITE TYPE</label></div>
+    <div class="type-grid">
+      <button class="type-choice" onclick="selectLocalType(this,'Business')">Business</button>
+      <button class="type-choice" onclick="selectLocalType(this,'Portfolio')">Portfolio</button>
+      <button class="type-choice" onclick="selectLocalType(this,'Online Store')">Online Store</button>
+      <button class="type-choice" onclick="selectLocalType(this,'Services')">Services</button>
+    </div>
+    <div class="create-field"><label>STARTING TEMPLATE</label></div>
+    <div class="template-row">
+      <button class="template-choice active" onclick="selectLocalTemplate(this,'Clean')">CLEAN<br><small>Simple modern layout</small></button>
+      <button class="template-choice" onclick="selectLocalTemplate(this,'Bold')">BOLD<br><small>Strong business hero</small></button>
+      <button class="template-choice" onclick="selectLocalTemplate(this,'Studio')">STUDIO<br><small>Portfolio style</small></button>
+    </div>
+    <div id="createSiteMessage" class="create-msg"></div>
+    <button class="create-full" onclick="createLocalWebsite()">CREATE WEBSITE</button>
+  </div>
+</div>
+
+<!-- LOCAL EDITOR -->
+<div id="editorScreen" class="editor-screen hidden">
+  <div class="editor-top">
+    <div class="editor-left-top">
+      <button class="editor-btn" onclick="backToLocalDashboard()">BACK</button>
+      <div><div id="editorProjectName" class="editor-name">Website</div><div id="editorProjectStatus" class="editor-status">draft</div></div>
+    </div>
+    <div class="editor-right-top">
+      <button id="deviceDesktop" class="editor-btn active" onclick="setLocalDevice('desktop')">Desktop</button>
+      <button id="deviceTablet" class="editor-btn" onclick="setLocalDevice('tablet')">Tablet</button>
+      <button id="deviceMobile" class="editor-btn" onclick="setLocalDevice('mobile')">Mobile</button>
+      <button class="editor-btn" onclick="saveLocalWebsite()">SAVE</button>
+      <button class="editor-btn publish" onclick="publishLocalWebsite()">PUBLISH</button>
+    </div>
+  </div>
+  <div class="editor-layout">
+    <aside class="editor-sidebar">
+      <div class="editor-panel-title">ADD</div>
+      <div class="editor-tools">
+        <button class="editor-tool" onclick="addLocalSection()">Add Section</button>
+        <button class="editor-tool" onclick="addLocalHeading()">Add Heading</button>
+        <button class="editor-tool" onclick="addLocalText()">Add Text</button>
+        <button class="editor-tool" onclick="addLocalButton()">Add Button</button>
+      </div>
+      <div class="editor-panel-title">PAGES</div>
+      <div class="editor-tools"><button class="editor-tool">Home</button><button class="editor-tool">About</button><button class="editor-tool">Services</button><button class="editor-tool">Contact</button></div>
+    </aside>
+    <main class="editor-canvas">
+      <div class="preview-shell"><div id="localPreviewFrame" class="preview-frame"><div id="localSitePreview" class="site-preview"></div></div></div>
+    </main>
+    <aside class="editor-settings">
+      <div class="editor-panel-title">ELEMENT SETTINGS</div>
+      <div id="localSettingsEmpty" class="settings-body"><p>Click a heading, text or button in the preview to edit it.</p></div>
+      <div id="localSettingsPanel" class="settings-body hidden">
+        <label>CONTENT</label><textarea id="localElementText" oninput="liveLocalElementUpdate()"></textarea>
+        <label id="localLinkLabel" class="hidden">BUTTON LINK</label><input id="localLinkInput" class="hidden" type="text" placeholder="https://example.com">
+        <button class="danger-link" onclick="deleteLocalSelectedElement()">DELETE ELEMENT</button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+
+/* =========================================================
+   SUPABASE AUTH CONFIGURATION
+   Replace ONLY these two values from Supabase -> Connect / API
+========================================================= */
+const SUPABASE_URL = "https://hagfssmgfqsnvuafbizs.supabase.co/";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_DuXImX75fj-8J6CMzqdhiw_riatA_U4";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+function isSupabaseConfigured(){
+  return (
+    SUPABASE_URL.startsWith("https://") &&
+    SUPABASE_URL.includes(".supabase.co") &&
+    !SUPABASE_PUBLISHABLE_KEY.startsWith("PASTE_") &&
+    SUPABASE_PUBLISHABLE_KEY.length > 20
+  );
+}
+
+function requireSupabaseConfig(messageId){
+  if(isSupabaseConfigured()) return true;
+  showAuthMessage(
+    messageId,
+    "Add your Supabase Project URL and Publishable Key in the SUPABASE AUTH CONFIGURATION section first.",
+    "error"
+  );
+  return false;
+}
+
+function saveSupabaseUserSession(user, fallbackName){
+  if(!user) return null;
+
+  const name =
+    (user.user_metadata && (user.user_metadata.full_name || user.user_metadata.name)) ||
+    fallbackName ||
+    (user.email ? user.email.split("@")[0] : "SITEORA User");
+
+  const session = {
+    id:user.id,
+    name:name,
+    email:user.email || ""
+  };
+
+  localStorage.setItem("siteoraLocalSession",JSON.stringify(session));
+  return session;
+}
+
+
+/* =========================================================
+   CAROUSEL VARIABLES
+========================================================= */
+
+const cards =
+  Array.from(
+    document.querySelectorAll(
+      ".website-card"
+    )
+  );
+
+
+const dots =
+  Array.from(
+    document.querySelectorAll(
+      ".carousel-dot"
+    )
+  );
+
+
+const carouselStage =
+  document.getElementById(
+    "carouselStage"
+  );
+
+
+let currentIndex = 1;
+
+let autoTimer = null;
+
+let isPaused = false;
+
+
+/* =========================================================
+   HELPER
+========================================================= */
+
+function circularDifference(
+  index,
+  active,
+  total
+){
+
+  let difference =
+    index - active;
+
+
+  if(
+    difference >
+    total / 2
+  ){
+
+    difference -=
+      total;
+
+  }
+
+
+  if(
+    difference <
+    -total / 2
+  ){
+
+    difference +=
+      total;
+
+  }
+
+
+  return difference;
+
+}
+
+
+/* =========================================================
+   UPDATE CAROUSEL
+
+   This is different from old translate-track method.
+
+   Every card receives its own position class.
+   Because of this movement will work consistently.
+========================================================= */
+
+function updateCarousel(){
+
+  const total =
+    cards.length;
+
+
+  cards.forEach(
+    function(card,index){
+
+
+      card.classList.remove(
+        "active",
+        "prev",
+        "next",
+        "far-prev",
+        "far-next"
+      );
+
+
+      const difference =
+        circularDifference(
+          index,
+          currentIndex,
+          total
+        );
+
+
+      if(difference === 0){
+
+        card.classList.add(
+          "active"
+        );
+
+      }
+
+      else if(difference === -1){
+
+        card.classList.add(
+          "prev"
+        );
+
+      }
+
+      else if(difference === 1){
+
+        card.classList.add(
+          "next"
+        );
+
+      }
+
+      else if(difference < -1){
+
+        card.classList.add(
+          "far-prev"
+        );
+
+      }
+
+      else{
+
+        card.classList.add(
+          "far-next"
+        );
+
+      }
+
+    }
+  );
+
+
+  dots.forEach(
+    function(dot,index){
+
+      dot.classList.toggle(
+        "active",
+        index === currentIndex
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   NEXT SLIDE
+========================================================= */
+
+function nextSlide(){
+
+  currentIndex =
+    (
+      currentIndex + 1
+    )
+    %
+    cards.length;
+
+
+  updateCarousel();
+
+}
+
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+function previousSlide(){
+
+  currentIndex--;
+
+
+  if(currentIndex < 0){
+
+    currentIndex =
+      cards.length - 1;
+
+  }
+
+
+  updateCarousel();
+
+  restartAutoSlide();
+
+}
+
+
+/* =========================================================
+   NEXT MANUAL
+========================================================= */
+
+function nextSlideManual(){
+
+  nextSlide();
+
+  restartAutoSlide();
+
+}
+
+
+/* =========================================================
+   DOT
+========================================================= */
+
+function goToSlide(index){
+
+  currentIndex =
+    index;
+
+
+  updateCarousel();
+
+  restartAutoSlide();
+
+}
+
+
+/* =========================================================
+   CARD CLICK
+
+   side card click = card first center ki vastundi
+
+   active card click = preview function
+========================================================= */
+
+function handleCardClick(index){
+
+  if(index !== currentIndex){
+
+    currentIndex =
+      index;
+
+
+    updateCarousel();
+
+    restartAutoSlide();
+
+    return;
+
+  }
+
+
+  openTemplate(
+    null,
+    index
+  );
+
+}
+
+
+/* =========================================================
+   TEMPLATE PREVIEW
+========================================================= */
+
+function openTemplate(
+  event,
+  index
+){
+
+  if(event){
+
+    event.stopPropagation();
+
+  }
+
+
+  const templateNames = [
+
+    "Barber Studio",
+
+    "Balance Wellness",
+
+    "Academic Lessons",
+
+    "North Studio",
+
+    "Form Store"
+
+  ];
+
+
+  /*
+    Later ee alert place lo
+    actual full template preview page
+    open chestham.
+  */
+
+
+  alert(
+    templateNames[index] +
+    " template selected"
+  );
+
+}
+
+
+/* =========================================================
+   AUTO SLIDER
+   EXACTLY EVERY 2 SECONDS
+========================================================= */
+
+function startAutoSlide(){
+
+  clearInterval(
+    autoTimer
+  );
+
+
+  autoTimer =
+    setInterval(
+      function(){
+
+        if(!isPaused){
+
+          nextSlide();
+
+        }
+
+      },
+      2000
+    );
+
+}
+
+
+/* =========================================================
+   RESTART TIMER
+========================================================= */
+
+function restartAutoSlide(){
+
+  clearInterval(
+    autoTimer
+  );
+
+
+  startAutoSlide();
+
+}
+
+
+/* =========================================================
+   PAUSE ON HOVER
+========================================================= */
+
+carouselStage.addEventListener(
+  "mouseenter",
+  function(){
+
+    isPaused =
+      true;
+
+  }
+);
+
+
+carouselStage.addEventListener(
+  "mouseleave",
+  function(){
+
+    isPaused =
+      false;
+
+  }
+);
+
+
+/* =========================================================
+   TOUCH SWIPE
+========================================================= */
+
+let touchStartX =
+  0;
+
+
+let touchEndX =
+  0;
+
+
+carouselStage.addEventListener(
+  "touchstart",
+  function(event){
+
+    isPaused =
+      true;
+
+
+    touchStartX =
+      event
+        .changedTouches[0]
+        .screenX;
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+carouselStage.addEventListener(
+  "touchend",
+  function(event){
+
+    touchEndX =
+      event
+        .changedTouches[0]
+        .screenX;
+
+
+    handleSwipe();
+
+
+    isPaused =
+      false;
+
+
+    restartAutoSlide();
+
+  },
+  {
+    passive:true
+  }
+);
+
+
+function handleSwipe(){
+
+  const distance =
+    touchEndX -
+    touchStartX;
+
+
+  if(
+    Math.abs(distance) <
+    35
+  ){
+
+    return;
+
+  }
+
+
+  if(distance < 0){
+
+    nextSlide();
+
+  }
+
+  else{
+
+    currentIndex--;
+
+
+    if(
+      currentIndex < 0
+    ){
+
+      currentIndex =
+        cards.length - 1;
+
+    }
+
+
+    updateCarousel();
+
+  }
+
+}
+
+
+/* =========================================================
+   VISIBILITY
+
+   Browser tab change chesina timer weird ga
+   behave avvakunda.
+========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function(){
+
+    if(document.hidden){
+
+      clearInterval(
+        autoTimer
+      );
+
+    }
+
+    else{
+
+      startAutoSlide();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function goHome(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function scrollToSection(id){
+
+  closeMobileMenu();
+
+
+  const element =
+    document.getElementById(
+      id
+    );
+
+
+  if(element){
+
+    element.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMobileMenu(){
+
+  const menu =
+    document.getElementById(
+      "mobileMenu"
+    );
+
+
+  menu.classList.toggle(
+    "active"
+  );
+
+
+  document.body.style.overflow =
+    menu.classList.contains(
+      "active"
+    )
+    ?
+    "hidden"
+    :
+    "";
+
+}
+
+
+function closeMobileMenu(){
+
+  document
+    .getElementById(
+      "mobileMenu"
+    )
+    .classList
+    .remove("active");
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================================================
+   LOGIN / SIGNUP
+
+   LOCAL LOGIN / SIGNUP FUNCTIONS
+========================================================= */
+
+function openLogin(){
+
+  closeMobileMenu();
+
+  const session = getLocalSession();
+
+  if(session){
+    openLocalDashboard();
+    return;
+  }
+
+  showLoginPanel();
+
+  document
+    .getElementById("authOverlay")
+    .classList
+    .remove("hidden");
+
+  document.body.style.overflow = "hidden";
+
+  setTimeout(function(){
+    document.getElementById("loginEmail").focus();
+  },50);
+}
+
+
+function openSignup(){
+
+  closeMobileMenu();
+
+  showSignupPanel();
+
+  document
+    .getElementById("authOverlay")
+    .classList
+    .remove("hidden");
+
+  document.body.style.overflow = "hidden";
+
+  setTimeout(function(){
+    document.getElementById("signupName").focus();
+  },50);
+}
+
+
+function closeAuth(){
+
+  document
+    .getElementById("authOverlay")
+    .classList
+    .add("hidden");
+
+  document.body.style.overflow = "";
+
+  clearAuthMessages();
+}
+
+
+function authBackdropClick(event){
+  if(event.target.id === "authOverlay"){
+    closeAuth();
+  }
+}
+
+
+function showLoginPanel(){
+
+  document.getElementById("loginPanel").classList.remove("hidden");
+  document.getElementById("signupPanel").classList.add("hidden");
+  clearAuthMessages();
+
+  const loginOtpWrap = document.getElementById("loginOtpWrap");
+  if(loginOtpWrap) loginOtpWrap.classList.add("hidden");
+
+  const loginOtp = document.getElementById("loginOtp");
+  if(loginOtp) loginOtp.value = "";
+
+  const hint = document.getElementById("loginDemoOtpHint");
+  if(hint) hint.classList.add("hidden");
+}
+
+
+function showSignupPanel(){
+
+  document.getElementById("signupPanel").classList.remove("hidden");
+  document.getElementById("loginPanel").classList.add("hidden");
+  clearAuthMessages();
+
+  const signupOtpWrap = document.getElementById("signupOtpWrap");
+  if(signupOtpWrap) signupOtpWrap.classList.add("hidden");
+
+  const signupOtp = document.getElementById("signupOtp");
+  if(signupOtp) signupOtp.value = "";
+
+  const hint = document.getElementById("demoOtpHint");
+  if(hint) hint.classList.add("hidden");
+}
+
+
+function clearAuthMessages(){
+
+  ["loginMessage","signupMessage","otpMessage"].forEach(function(id){
+    const el = document.getElementById(id);
+    if(el){
+      el.textContent = "";
+      el.className = "auth-message";
+    }
+  });
+}
+
+
+function showAuthMessage(id,text,type){
+
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = "auth-message " + type;
+}
+
+
+function getLocalUsers(){
+
+  try{
+    return JSON.parse(localStorage.getItem("siteoraLocalUsers") || "[]");
+  }catch(error){
+    return [];
+  }
+}
+
+
+function saveLocalUsers(users){
+  localStorage.setItem("siteoraLocalUsers",JSON.stringify(users));
+}
+
+
+function getLocalSession(){
+
+  try{
+    return JSON.parse(localStorage.getItem("siteoraLocalSession") || "null");
+  }catch(error){
+    return null;
+  }
+}
+
+
+function isGmailAddress(email){
+
+  return /^[^\s@]+@gmail\.com$/i.test(email);
+
+}
+
+
+function setSignupOtpLoading(isLoading){
+  const button = document.getElementById("signupGetOtpBtn");
+  if(!button) return;
+  button.disabled = isLoading;
+  button.classList.toggle("loading",isLoading);
+}
+
+async function sendSignupOTP(){
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("signupConfirmPassword").value;
+
+  if(name.length < 2){
+    showAuthMessage("signupMessage","Enter your full name.","error");
+    return;
+  }
+
+  if(!isGmailAddress(email)){
+    showAuthMessage("signupMessage","Please enter a valid Gmail address ending with @gmail.com.","error");
+    return;
+  }
+
+  if(password.length < 6){
+    showAuthMessage("signupMessage","Password must be at least 6 characters.","error");
+    return;
+  }
+
+  if(password !== confirmPassword){
+    showAuthMessage("signupMessage","Password and confirm password do not match.","error");
+    return;
+  }
+
+  if(!requireSupabaseConfig("signupMessage")) return;
+
+  clearAuthMessages();
+  setSignupOtpLoading(true);
+
+  try{
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email:email,
+      options:{
+        shouldCreateUser:true,
+        data:{
+          full_name:name,
+          name:name
+        }
+      }
+    });
+
+    if(error) throw error;
+
+    sessionStorage.setItem("siteoraSignupEmail",email);
+    sessionStorage.setItem("siteoraSignupName",name);
+
+    const wrap = document.getElementById("signupOtpWrap");
+    wrap.classList.remove("hidden");
+
+    const hint = document.getElementById("demoOtpHint");
+    if(hint) hint.classList.add("hidden");
+
+    document.getElementById("signupOtpSentText").textContent = "OTP sent to " + email;
+    document.getElementById("signupOtp").value = "";
+
+    showAuthMessage("signupMessage","OTP sent successfully. Check your Gmail inbox.","success");
+    document.getElementById("signupOtp").focus();
+  }
+  catch(error){
+    console.error("Signup OTP error:",error);
+    showAuthMessage("signupMessage",error.message || "Unable to send OTP. Please try again.","error");
+  }
+  finally{
+    setSignupOtpLoading(false);
+  }
+}
+
+async function verifySignupOTP(){
+  const enteredOTP = document.getElementById("signupOtp").value.trim();
+  const name = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+  const password = document.getElementById("signupPassword").value;
+  const confirmPassword = document.getElementById("signupConfirmPassword").value;
+  const sentEmail = sessionStorage.getItem("siteoraSignupEmail");
+
+  if(!requireSupabaseConfig("signupMessage")) return;
+
+  if(!sentEmail){
+    showAuthMessage("signupMessage","Click GET OTP first.","error");
+    return;
+  }
+
+  if(email !== sentEmail){
+    showAuthMessage("signupMessage","Gmail was changed after sending OTP. Click GET OTP again.","error");
+    return;
+  }
+
+  if(!/^\d{6}$/.test(enteredOTP)){
+    showAuthMessage("signupMessage","Enter the complete 6-digit OTP.","error");
+    return;
+  }
+
+  if(name.length < 2 || password.length < 6 || password !== confirmPassword){
+    showAuthMessage("signupMessage","Check your name and password fields before verifying OTP.","error");
+    return;
+  }
+
+  try{
+    const { data, error } = await supabaseClient.auth.verifyOtp({
+      email:email,
+      token:enteredOTP,
+      type:"email"
+    });
+
+    if(error) throw error;
+    if(!data.user) throw new Error("OTP verified but user details were not returned.");
+
+    /* After OTP verification the user has a secure Supabase session.
+       Set the password now so the account also has a real password. */
+    const { data:updateData, error:updateError } = await supabaseClient.auth.updateUser({
+      password:password,
+      data:{
+        full_name:name,
+        name:name
+      }
+    });
+
+    if(updateError) throw updateError;
+
+    const finalUser = updateData.user || data.user;
+    saveSupabaseUserSession(finalUser,name);
+
+    sessionStorage.removeItem("siteoraSignupEmail");
+    sessionStorage.removeItem("siteoraSignupName");
+
+    showAuthMessage("signupMessage","Gmail verified. Account created successfully.","success");
+
+    setTimeout(function(){
+      closeAuth();
+      updateLocalAuthUI();
+      openLocalDashboard();
+    },600);
+  }
+  catch(error){
+    console.error("Signup OTP verification error:",error);
+    showAuthMessage("signupMessage",error.message || "OTP verification failed.","error");
+  }
+}
+
+function setLoginOtpLoading(isLoading){
+  const button = document.getElementById("loginGetOtpBtn");
+  if(!button) return;
+  button.disabled = isLoading;
+  button.classList.toggle("loading",isLoading);
+}
+
+async function sendLoginOTP(){
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+
+  if(!isGmailAddress(email)){
+    showAuthMessage("loginMessage","Please enter a valid Gmail address ending with @gmail.com.","error");
+    return;
+  }
+
+  if(!requireSupabaseConfig("loginMessage")) return;
+
+  clearAuthMessages();
+  setLoginOtpLoading(true);
+
+  try{
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email:email,
+      options:{
+        shouldCreateUser:false
+      }
+    });
+
+    if(error) throw error;
+
+    sessionStorage.setItem("siteoraLoginEmail",email);
+
+    const wrap = document.getElementById("loginOtpWrap");
+    wrap.classList.remove("hidden");
+
+    const hint = document.getElementById("loginDemoOtpHint");
+    if(hint) hint.classList.add("hidden");
+
+    document.getElementById("loginOtpSentText").textContent = "OTP sent to " + email;
+    document.getElementById("loginOtp").value = "";
+
+    showAuthMessage("loginMessage","OTP sent successfully. Check your Gmail inbox.","success");
+    document.getElementById("loginOtp").focus();
+  }
+  catch(error){
+    console.error("Login OTP error:",error);
+    showAuthMessage("loginMessage",error.message || "Unable to send OTP. Create an account first if this Gmail is new.","error");
+  }
+  finally{
+    setLoginOtpLoading(false);
+  }
+}
+
+async function verifyLoginOTP(){
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const enteredOTP = document.getElementById("loginOtp").value.trim();
+  const savedEmail = sessionStorage.getItem("siteoraLoginEmail");
+
+  if(!requireSupabaseConfig("loginMessage")) return;
+
+  if(!savedEmail){
+    showAuthMessage("loginMessage","Click GET OTP first.","error");
+    return;
+  }
+
+  if(email !== savedEmail){
+    showAuthMessage("loginMessage","Gmail was changed after sending OTP. Click GET OTP again.","error");
+    return;
+  }
+
+  if(!/^\d{6}$/.test(enteredOTP)){
+    showAuthMessage("loginMessage","Enter the complete 6-digit OTP.","error");
+    return;
+  }
+
+  try{
+    const { data, error } = await supabaseClient.auth.verifyOtp({
+      email:email,
+      token:enteredOTP,
+      type:"email"
+    });
+
+    if(error) throw error;
+    if(!data.user) throw new Error("OTP verified but user details were not returned.");
+
+    saveSupabaseUserSession(data.user);
+    sessionStorage.removeItem("siteoraLoginEmail");
+
+    showAuthMessage("loginMessage","OTP verified. Login successful.","success");
+
+    setTimeout(function(){
+      closeAuth();
+      updateLocalAuthUI();
+      openLocalDashboard();
+    },450);
+  }
+  catch(error){
+    console.error("Login OTP verification error:",error);
+    showAuthMessage("loginMessage",error.message || "Incorrect or expired OTP.","error");
+  }
+}
+
+
+async function logoutLocal(){
+  if(isSupabaseConfigured()){
+    try{ await supabaseClient.auth.signOut(); }catch(error){ console.error(error); }
+  }
+
+  localStorage.removeItem("siteoraLocalSession");
+  updateLocalAuthUI();
+  closeMobileMenu();
+}
+
+
+function updateLocalAuthUI(){
+
+  const session = getLocalSession();
+
+  const desktopLogin = document.querySelector(".nav-right .login-btn");
+  const desktopStart = document.querySelector(".nav-right .get-started-btn");
+  const mobileButtons = document.querySelectorAll(".mobile-auth button");
+
+  if(session){
+
+    if(desktopLogin){
+      desktopLogin.textContent = session.name.toUpperCase();
+      desktopLogin.classList.add("local-user-chip");
+      desktopLogin.onclick = function(){
+        alert("Logged in as " + session.name + "\\n" + session.email);
+      };
+    }
+
+    if(desktopStart){
+      desktopStart.textContent = "LOG OUT";
+      desktopStart.onclick = logoutLocal;
+    }
+
+    if(mobileButtons[0]){
+      mobileButtons[0].textContent = session.name.toUpperCase();
+      mobileButtons[0].onclick = function(){
+        alert("Logged in as " + session.name + "\\n" + session.email);
+      };
+    }
+
+    if(mobileButtons[1]){
+      mobileButtons[1].textContent = "LOG OUT";
+      mobileButtons[1].onclick = logoutLocal;
+    }
+  }
+  else{
+
+    if(desktopLogin){
+      desktopLogin.textContent = "LOG IN";
+      desktopLogin.classList.remove("local-user-chip");
+      desktopLogin.onclick = openLogin;
+    }
+
+    if(desktopStart){
+      desktopStart.textContent = "GET STARTED";
+      desktopStart.onclick = openSignup;
+    }
+
+    if(mobileButtons[0]){
+      mobileButtons[0].textContent = "LOG IN";
+      mobileButtons[0].onclick = openLogin;
+    }
+
+    if(mobileButtons[1]){
+      mobileButtons[1].textContent = "GET STARTED";
+      mobileButtons[1].onclick = openSignup;
+    }
+  }
+}
+
+
+
+
+/* =========================================================
+   LOCAL DASHBOARD + PROJECTS + EDITOR
+========================================================= */
+let localWebsiteType = "";
+let localTemplateName = "Clean";
+let currentLocalWebsite = null;
+let localSelectedElement = null;
+
+function getLocalProjects(){
+  try{return JSON.parse(localStorage.getItem("siteoraLocalProjects") || "[]");}catch(e){return [];}
+}
+function saveLocalProjects(projects){localStorage.setItem("siteoraLocalProjects",JSON.stringify(projects));}
+
+function openLocalDashboard(){
+  const session=getLocalSession();
+  if(!session){openLogin();return;}
+  closeAuth();
+  document.getElementById("dashboardScreen").classList.remove("hidden");
+  document.getElementById("editorScreen").classList.add("hidden");
+  document.body.style.overflow="";
+  document.getElementById("dashboardWelcome").textContent="Welcome, "+session.name;
+  document.getElementById("dashUserBtn").textContent=(session.name||"U").charAt(0).toUpperCase();
+  renderLocalProjects();
+  window.scrollTo(0,0);
+}
+
+async function logoutFromDashboard(){
+  if(isSupabaseConfigured()){
+    try{ await supabaseClient.auth.signOut(); }catch(error){ console.error(error); }
+  }
+
+  localStorage.removeItem("siteoraLocalSession");
+  document.getElementById("dashboardScreen").classList.add("hidden");
+  document.getElementById("editorScreen").classList.add("hidden");
+  updateLocalAuthUI();
+  window.scrollTo(0,0);
+}
+
+function openCreateWebsiteModal(){
+  localWebsiteType=""; localTemplateName="Clean";
+  document.getElementById("localWebsiteName").value="";
+  document.getElementById("createSiteMessage").textContent="";
+  document.querySelectorAll(".type-choice").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".template-choice").forEach((b,i)=>b.classList.toggle("active",i===0));
+  document.getElementById("createSiteOverlay").classList.remove("hidden");
+  setTimeout(()=>document.getElementById("localWebsiteName").focus(),50);
+}
+function closeCreateWebsiteModal(){document.getElementById("createSiteOverlay").classList.add("hidden");}
+function createSiteBackdrop(e){if(e.target.id==="createSiteOverlay")closeCreateWebsiteModal();}
+function selectLocalType(btn,type){localWebsiteType=type;document.querySelectorAll(".type-choice").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
+function selectLocalTemplate(btn,name){localTemplateName=name;document.querySelectorAll(".template-choice").forEach(b=>b.classList.remove("active"));btn.classList.add("active");}
+
+function createLocalWebsite(){
+  const session=getLocalSession();
+  const name=document.getElementById("localWebsiteName").value.trim();
+  const msg=document.getElementById("createSiteMessage");
+  if(!session){msg.textContent="Please log in again.";return;}
+  if(name.length<2){msg.textContent="Enter a website name.";return;}
+  if(!localWebsiteType){msg.textContent="Select a website type.";return;}
+  const projects=getLocalProjects();
+  const project={
+    id:"site_"+Date.now(), userId:session.id, websiteName:name, websiteType:localWebsiteType,
+    template:localTemplateName, status:"draft", updatedAt:new Date().toISOString(),
+    content:{brand:name,heroTitle:localTemplateName==="Bold"?"Make your business impossible to ignore.":localTemplateName==="Studio"?"Work worth showing.":"Build something remarkable.",heroText:"Create a professional website that helps your business stand out.",heroButton:"GET STARTED",buttonLink:"#",aboutTitle:"About your business",aboutText:"Add information about your company, services or work here.",extraHtml:""}
+  };
+  projects.unshift(project); saveLocalProjects(projects); closeCreateWebsiteModal(); openLocalEditor(project);
+}
+
+function renderLocalProjects(){
+  const session=getLocalSession();
+  const all=getLocalProjects();
+  const projects=all.filter(p=>p.userId===session.id);
+  document.getElementById("dashTotal").textContent=projects.length;
+  document.getElementById("dashPublished").textContent=projects.filter(p=>p.status==="published").length;
+  document.getElementById("dashDrafts").textContent=projects.filter(p=>p.status!=="published").length;
+  const grid=document.getElementById("projectsGrid");
+  grid.innerHTML='<div class="new-project" onclick="openCreateWebsiteModal()"><b>+</b><strong>Create New Website</strong><span>Start a new project</span></div>';
+  projects.forEach(project=>{
+    const card=document.createElement("div");card.className="project-card";card.onclick=()=>openLocalEditor(project);
+    card.innerHTML='<div class="project-thumb">'+escapeLocal(project.template)+' TEMPLATE</div><h3>'+escapeLocal(project.websiteName)+'</h3><div class="project-meta"><span>'+escapeLocal(project.websiteType)+'</span><span class="status-pill">'+escapeLocal(project.status)+'</span></div>';
+    grid.appendChild(card);
+  });
+}
+
+function openLocalEditor(project){
+  currentLocalWebsite=JSON.parse(JSON.stringify(project)); localSelectedElement=null;
+  document.getElementById("dashboardScreen").classList.add("hidden");
+  document.getElementById("editorScreen").classList.remove("hidden");
+  document.getElementById("editorProjectName").textContent=project.websiteName;
+  document.getElementById("editorProjectStatus").textContent=project.status;
+  renderLocalEditorContent(project.content||{}); setLocalDevice("desktop");
+}
+function backToLocalDashboard(){openLocalDashboard();}
+
+function renderLocalEditorContent(c){
+  document.getElementById("localSitePreview").innerHTML=`
+    <div class="site-nav"><div class="site-brand editable" data-key="brand" data-type="text" onclick="selectLocalElement(this)">${escapeLocal(c.brand||currentLocalWebsite.websiteName)}</div><div class="site-links"><span>Home</span><span>About</span><span>Services</span><span>Contact</span></div></div>
+    <section class="site-hero"><div class="site-hero-inner"><h1 class="editable" data-key="heroTitle" data-type="text" onclick="selectLocalElement(this)">${escapeLocal(c.heroTitle||"Build something remarkable.")}</h1><p class="editable" data-key="heroText" data-type="text" onclick="selectLocalElement(this)">${escapeLocal(c.heroText||"Create a professional website.")}</p><button class="editable" data-key="heroButton" data-type="button" data-link="${escapeLocal(c.buttonLink||"#")}" onclick="event.preventDefault();selectLocalElement(this)">${escapeLocal(c.heroButton||"GET STARTED")}</button></div></section>
+    <section class="site-section"><h2 class="editable" data-key="aboutTitle" data-type="text" onclick="selectLocalElement(this)">${escapeLocal(c.aboutTitle||"About your business")}</h2><p class="editable" data-key="aboutText" data-type="text" onclick="selectLocalElement(this)">${escapeLocal(c.aboutText||"Add information here.")}</p></section>
+    <div id="localExtraContainer">${c.extraHtml||""}</div>`;
+  bindLocalExtraElements();
+}
+function bindLocalExtraElements(){document.querySelectorAll("#localExtraContainer .editable").forEach(el=>{el.onclick=function(e){if(this.tagName==="BUTTON")e.preventDefault();selectLocalElement(this);};});}
+
+function selectLocalElement(el){
+  document.querySelectorAll("#localSitePreview .editable").forEach(i=>i.classList.remove("selected"));
+  localSelectedElement=el;el.classList.add("selected");
+  document.getElementById("localSettingsEmpty").classList.add("hidden");document.getElementById("localSettingsPanel").classList.remove("hidden");
+  document.getElementById("localElementText").value=el.textContent.trim();
+  const isButton=el.dataset.type==="button";
+  document.getElementById("localLinkLabel").classList.toggle("hidden",!isButton);document.getElementById("localLinkInput").classList.toggle("hidden",!isButton);
+  if(isButton)document.getElementById("localLinkInput").value=el.dataset.link||"#";
+}
+function liveLocalElementUpdate(){if(localSelectedElement)localSelectedElement.textContent=document.getElementById("localElementText").value;}
+function deleteLocalSelectedElement(){if(!localSelectedElement)return;localSelectedElement.remove();localSelectedElement=null;document.getElementById("localSettingsPanel").classList.add("hidden");document.getElementById("localSettingsEmpty").classList.remove("hidden");}
+
+function getLocalExtra(){return document.getElementById("localExtraContainer");}
+function addLocalHeading(){const h=document.createElement("h2");h.className="editable";h.dataset.type="text";h.textContent="New Heading";h.onclick=function(){selectLocalElement(this)};getLocalExtra().appendChild(wrapLocalNode(h));}
+function addLocalText(){const p=document.createElement("p");p.className="editable";p.dataset.type="text";p.textContent="Add your text here.";p.onclick=function(){selectLocalElement(this)};getLocalExtra().appendChild(wrapLocalNode(p));}
+function addLocalButton(){const b=document.createElement("button");b.className="editable";b.dataset.type="button";b.dataset.link="#";b.textContent="BUTTON";b.style.cssText="height:44px;padding:0 20px;border:none;background:#111;color:#fff;font-weight:800";b.onclick=function(e){e.preventDefault();selectLocalElement(this)};getLocalExtra().appendChild(wrapLocalNode(b));}
+function addLocalSection(){const sec=document.createElement("section");sec.className="site-section";sec.innerHTML='<h2 class="editable" data-type="text">New Section</h2><p class="editable" data-type="text">Add information to this section.</p>';sec.querySelectorAll(".editable").forEach(el=>el.onclick=function(){selectLocalElement(this)});getLocalExtra().appendChild(sec);}
+function wrapLocalNode(node){const sec=document.createElement("section");sec.className="site-section";sec.appendChild(node);return sec;}
+
+function setLocalDevice(device){
+  const frame=document.getElementById("localPreviewFrame");frame.classList.remove("tablet","mobile");
+  ["deviceDesktop","deviceTablet","deviceMobile"].forEach(id=>document.getElementById(id).classList.remove("active"));
+  if(device==="tablet"){frame.classList.add("tablet");document.getElementById("deviceTablet").classList.add("active");}
+  else if(device==="mobile"){frame.classList.add("mobile");document.getElementById("deviceMobile").classList.add("active");}
+  else document.getElementById("deviceDesktop").classList.add("active");
+}
+
+function collectLocalContent(){
+  if(localSelectedElement && localSelectedElement.dataset.type==="button")localSelectedElement.dataset.link=document.getElementById("localLinkInput").value.trim()||"#";
+  const txt=k=>{const e=document.querySelector('#localSitePreview [data-key="'+k+'"]');return e?e.textContent.trim():"";};
+  const btn=document.querySelector('#localSitePreview [data-key="heroButton"]');
+  return {brand:txt("brand"),heroTitle:txt("heroTitle"),heroText:txt("heroText"),heroButton:txt("heroButton"),buttonLink:btn?btn.dataset.link||"#":"#",aboutTitle:txt("aboutTitle"),aboutText:txt("aboutText"),extraHtml:document.getElementById("localExtraContainer").innerHTML};
+}
+function saveLocalWebsite(){
+  if(!currentLocalWebsite)return;
+  currentLocalWebsite.content=collectLocalContent();currentLocalWebsite.updatedAt=new Date().toISOString();
+  const projects=getLocalProjects();const i=projects.findIndex(p=>p.id===currentLocalWebsite.id);if(i>=0)projects[i]=currentLocalWebsite;saveLocalProjects(projects);alert("Website saved successfully.");
+}
+function publishLocalWebsite(){
+  if(!currentLocalWebsite)return;currentLocalWebsite.status="published";currentLocalWebsite.content=collectLocalContent();currentLocalWebsite.updatedAt=new Date().toISOString();
+  const projects=getLocalProjects();const i=projects.findIndex(p=>p.id===currentLocalWebsite.id);if(i>=0)projects[i]=currentLocalWebsite;saveLocalProjects(projects);document.getElementById("editorProjectStatus").textContent="published";alert("Website published successfully.");
+}
+function escapeLocal(v){return String(v||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  async function(){
+
+    updateCarousel();
+    startAutoSlide();
+
+    if(isSupabaseConfigured()){
+      try{
+        const { data } = await supabaseClient.auth.getSession();
+        if(data && data.session && data.session.user){
+          saveSupabaseUserSession(data.session.user);
+        }else{
+          localStorage.removeItem("siteoraLocalSession");
+        }
+      }catch(error){
+        console.error("Supabase session restore error:",error);
+      }
+    }
+
+    updateLocalAuthUI();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
